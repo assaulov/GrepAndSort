@@ -6,7 +6,7 @@
 
     <groupId>assa.training</groupId>
     <artifactId>GrepAndSort</artifactId>
-    <version>1</version>
+    <version>5</version>
 <packaging>jar</packaging>
 <build>
     <plugins>

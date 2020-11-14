@@ -3,6 +3,8 @@ package GrepAndSort.Grep;
 import GrepAndSort.Interfaces.Methods;
 import org.w3c.dom.ls.LSOutput;
 
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
