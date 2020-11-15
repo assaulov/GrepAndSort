@@ -4,38 +4,53 @@ package GrepAndSort;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GrepAndSort {
-    static Scanner scanner = new Scanner(System.in);
-    static final String GREP = "Grep";
-    static final String SORT = "Sort";
+     static Scanner scanner = new Scanner(System.in);
+     static final String GREP = "grep";
+     static final String SORT = "sort";
+    static final String STOP = "stop";
+     static  final String CHOICE = " Программа для выборки из сторки по заданному фильтру: Grep.\n" +
+                "Программа для сортировки слов строки по длине и алфавиту: Sort.\n" +
+                "Выход : Stop.\n" +
+                "Выберите программу для исполенния: ";
+
     public static void main(String[] args) throws IOException, InterruptedException {
-/*
+
         final String STOP = "stop";
         if (args.length == 0) {
             Process p = Runtime.getRuntime().exec("cmd.exe /c start java -jar " +
-                    (new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getAbsolutePath() + " cmd");
+                    (new File(GrepAndSort.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getAbsolutePath() + " cmd");
 
         } else {
-*/
-            while (true) {
 
-               startGrep();
-                    System.out.println("Если хотите продолжить нажмите любую клавишу. Введите \"stop\" для выхода.");
-                    if(scanner.nextLine().equalsIgnoreCase("stop")){
-                    scanner.close();
-                    System.out.println("Good Bye!");
-                    Thread.sleep(2000);
-                    System.exit(0);
+            while (true) {
+                System.out.println(CHOICE);
+                var doChoice = scanner.nextLine();
+                switch (doChoice.toLowerCase()) {
+                    case (SORT) -> startSort();
+                    case (GREP) -> startGrep();
+                    case (STOP) -> {
+                        scanner.close();
+                        System.out.println("Good Bye!");
+                        Thread.sleep(2000);
+                        System.exit(0);
+                    }
+                    default -> System.out.println("Введите Grep или Sort");
                 }
+
+                System.out.println("Если хотите продолжить нажмите любую клавишу. Введите \"stop\" для выхода.");
 
             }
 
-
         }
+    }
+
+
 
         private static void grep(String inputString, String filter) {
         if(inputString.isEmpty() || filter.isEmpty()) {
@@ -54,6 +69,7 @@ public class GrepAndSort {
     }
 
         private static  void startGrep(){
+            System.out.println();
             System.out.println("Grep");
             System.out.println();
             System.out.println("Введите слова: ");
@@ -64,7 +80,31 @@ public class GrepAndSort {
             grep(inputString, filter);
     }
 
-    
+        private static void sort(String inputString) {
+            if (inputString.isEmpty()) {
+                System.out.println("Введите данные!");
+            } else {
+                Stream<String> stringStream = Stream.of(inputString.split("[\\p{Punct}\\s]+"));
+                String result = stringStream.sorted(Comparator.comparing(String::length)
+                        .thenComparing(String::compareToIgnoreCase))
+                        .map(String::toLowerCase)
+                        .collect(Collectors.joining(", "));
+                System.out.println(result);
+
+            }
+        }
+
+        private static void startSort() {
+            System.out.println();
+            System.out.println("Sort");
+            System.out.println();
+            System.out.println("Введите сторку для сортировки: ");
+            var inputString = scanner.nextLine();
+            System.out.println("Результат сортировки по длине слова и алфавиту: ");
+            sort(inputString);
+
+        }
+
 
     }
-//}
+}
