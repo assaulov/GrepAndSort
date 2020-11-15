@@ -1,13 +1,9 @@
 package GrepAndSort;
 
-
-
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Comparator;
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,7 +23,7 @@ public class GrepAndSort {
 
             //Запуск консоли
         if (args.length == 0) {
-            Process p = Runtime.getRuntime().exec("cmd.exe /c start java -Dfile.encoding=cp866 -jar " +
+            Runtime.getRuntime().exec("cmd.exe /c start java -Dfile.encoding=cp866 -jar " +
                     (new File(GrepAndSort.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getAbsolutePath() + " cmd");
 
         } else {
@@ -49,15 +45,12 @@ public class GrepAndSort {
                     }
                     default -> System.out.println("Введите Grep или Sort");
                 }
-                System.out.println();
-                System.out.println("Если хотите продолжить нажмите любую клавишу. Введите \"stop\" для выхода.");
+
 
             }
 
         }
     }
-
-
             // Метод фильтра
         private static void grep(String inputString, String filter) {
         if(inputString.isEmpty() || filter.isEmpty()) {
@@ -87,7 +80,7 @@ public class GrepAndSort {
             grep(inputString, filter);
         }
         // Метод сортировки
-        private static void sort(String inputString) throws UnsupportedEncodingException {
+        private static void sort(String inputString)  {
             if (inputString.isEmpty()) {
                 System.out.println("Введите данные!");
             } else {
@@ -95,15 +88,14 @@ public class GrepAndSort {
                 String result = stringStream.sorted(Comparator.comparing(String::length)
                         .thenComparing(String::compareToIgnoreCase))
                         .map(String::toLowerCase)
-                        .collect(Collectors.joining(", "));
-               // String newResult = new String(result.getBytes(), "Cp1251");
+                        .collect(Collectors.joining("\n"));
                 System.out.println(result);
 
 
             }
         }
         //Запуск сортировки
-        private static void startSort() throws UnsupportedEncodingException {
+        private static void startSort()  {
             System.out.println();
             System.out.println("Sort");
             System.out.println();
