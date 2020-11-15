@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GrepAndSort {
-     static Scanner scanner = new Scanner(System.in);
-     static final String GREP = "grep";
-     static final String SORT = "sort";
+    static Scanner scanner = new Scanner(System.in);
+    static final String GREP = "grep";
+    static final String SORT = "sort";
     static final String STOP = "stop";
-     static  final String CHOICE = " Программа для выборки из сторки по заданному фильтру: Grep.\n" +
+    static  final String CHOICE = " Программа для выборки из сторки по заданному фильтру: Grep.\n" +
                 "Программа для сортировки слов строки по длине и алфавиту: Sort.\n" +
                 "Выход : Stop.\n" +
                 "Выберите программу для исполенния: ";
@@ -64,9 +64,9 @@ public class GrepAndSort {
                 System.out.println("Совпадений не найдено!");
             } else System.out.println(result);
 
-        }
+             }
 
-    }
+        }
 
         private static  void startGrep(){
             System.out.println();
@@ -78,7 +78,7 @@ public class GrepAndSort {
             var filter = scanner.nextLine().toLowerCase();
             System.out.print("Результат применения фильтра: ");
             grep(inputString, filter);
-    }
+        }
 
         private static void sort(String inputString) {
             if (inputString.isEmpty()) {
@@ -106,5 +106,4 @@ public class GrepAndSort {
         }
 
 
-    }
 }

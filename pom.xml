@@ -6,7 +6,7 @@
 
     <groupId>assa.training</groupId>
     <artifactId>GrepAndSort</artifactId>
-    <version>5</version>
+    <version>6</version>
 <packaging>jar</packaging>
 <build>
     <plugins>
@@ -19,7 +19,18 @@
                 <encoding>UTF-8</encoding>
             </configuration>
         </plugin>
-
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>GrepAndSort.GrepAndSort</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
     <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -27,7 +38,7 @@
             <appendAssemblyId>false</appendAssemblyId>
             <archive>
                 <manifest>
-                    <mainClass>GrepAndSort.Main</mainClass>
+                    <mainClass>GrepAndSort.GrepAndSort</mainClass>
                 </manifest>
             </archive>
             <descriptorRefs>
