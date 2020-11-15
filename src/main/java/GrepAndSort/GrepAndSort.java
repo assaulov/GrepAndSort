@@ -4,45 +4,52 @@ package GrepAndSort;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GrepAndSort {
+
     static Scanner scanner = new Scanner(System.in);
     static final String GREP = "grep";
     static final String SORT = "sort";
     static final String STOP = "stop";
-    static  final String CHOICE = " Программа для выборки из сторки по заданному фильтру: Grep.\n" +
+    static  final String CHOICE = "Программа для выборки из сторки по заданному фильтру: Grep.\n" +
                 "Программа для сортировки слов строки по длине и алфавиту: Sort.\n" +
                 "Выход : Stop.\n" +
                 "Выберите программу для исполенния: ";
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        final String STOP = "stop";
+            //Запуск консоли
         if (args.length == 0) {
-            Process p = Runtime.getRuntime().exec("cmd.exe /c start java -jar " +
+            Process p = Runtime.getRuntime().exec("cmd.exe /c start java -Dfile.encoding=cp866 -jar " +
                     (new File(GrepAndSort.class.getProtectionDomain().getCodeSource().getLocation().getPath())).getAbsolutePath() + " cmd");
 
         } else {
 
             while (true) {
+                //Вывод приветсвия
                 System.out.println(CHOICE);
                 var doChoice = scanner.nextLine();
+                //Запуск программы в зависимости от выбора пользователя
                 switch (doChoice.toLowerCase()) {
-                    case (SORT) -> startSort();
-                    case (GREP) -> startGrep();
-                    case (STOP) -> {
+                    case (SORT) -> startSort(); // Звауск сортировки
+                    case (GREP) -> startGrep(); // Запуск фильтра
+                    case (STOP) -> { // Остановка программы
                         scanner.close();
+                        System.out.println();
                         System.out.println("Good Bye!");
                         Thread.sleep(2000);
                         System.exit(0);
                     }
                     default -> System.out.println("Введите Grep или Sort");
                 }
-
+                System.out.println();
                 System.out.println("Если хотите продолжить нажмите любую клавишу. Введите \"stop\" для выхода.");
 
             }
@@ -51,7 +58,7 @@ public class GrepAndSort {
     }
 
 
-
+            // Метод фильтра
         private static void grep(String inputString, String filter) {
         if(inputString.isEmpty() || filter.isEmpty()) {
             System.out.println("Введите данные!");
@@ -67,7 +74,7 @@ public class GrepAndSort {
              }
 
         }
-
+    //Старт фильтра
         private static  void startGrep(){
             System.out.println();
             System.out.println("Grep");
@@ -79,8 +86,8 @@ public class GrepAndSort {
             System.out.print("Результат применения фильтра: ");
             grep(inputString, filter);
         }
-
-        private static void sort(String inputString) {
+        // Метод сортировки
+        private static void sort(String inputString) throws UnsupportedEncodingException {
             if (inputString.isEmpty()) {
                 System.out.println("Введите данные!");
             } else {
@@ -89,12 +96,14 @@ public class GrepAndSort {
                         .thenComparing(String::compareToIgnoreCase))
                         .map(String::toLowerCase)
                         .collect(Collectors.joining(", "));
+               // String newResult = new String(result.getBytes(), "Cp1251");
                 System.out.println(result);
+
 
             }
         }
-
-        private static void startSort() {
+        //Запуск сортировки
+        private static void startSort() throws UnsupportedEncodingException {
             System.out.println();
             System.out.println("Sort");
             System.out.println();
@@ -104,6 +113,4 @@ public class GrepAndSort {
             sort(inputString);
 
         }
-
-
 }
